@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NoodleAPI</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+  </head>
+  <body style="background-color: #ffe49c">
+
+    <div class="text-center mb-5">
+    <h1 style="padding-top: 20px; font-family: Audiowide, sans-serif;">NoodleAPI:</h1>
+    </div>
+
+    <div style="border: 5px solid black; width: 1100px;" class="text-center mx-auto">
+
+
+    <div x-data="{valueList: [], 'isLoading': true}" x-init="fetch('http://127.0.0.1:8000/get/merken/')
+    .then(response => response.json())
+    .then(response => { valueList = response; isLoading = false;})">
+      <table x-show="!isLoading" class="table w-50 text-center align-content-center mx-auto">
+        <thead class="thead-dark">
+        <tr>
+          <th class="h4 mb-2" scope="col">Id</th>
+          <th class="h4 mb-2" scope="col">Merk</th>
+          <th class="h4 mb-2" scope="col">Smaak</th>
+          <th class="h4 mb-2" scope="col">Verpakking</th>
+        </tr>
+    </thead>
+    
+        <template x-for="x in valueList" :key="x.merkId">
+          <tr>
+            <td x-text="x.merkId"></td>
+            <td x-text="x.merkNaam"></td>
+            <td x-text="x.smaakId"></td>
+            <td x-text="x.verpakkingId"></td>
+          </tr>
+        </template>
+      </table>
+    </div>
+
+
+    <h3 class="text-center mt-5">Verschillende smaken:</h3>
+    <div x-data="{valueList: [], 'isLoading': true}" x-init="fetch('http://127.0.0.1:8000/get/smaken/')
+    .then(response => response.json())
+    .then(response => { valueList = response; isLoading = false;})">
+      <table x-show="!isLoading" class="table w-50 text-center align-content-center mx-auto">
+        <thead class="thead-dark">
+        <tr>
+          <th class="h4 mb-2" scope="col">Id</th>
+          <th class="h4 mb-2" scope="col">Merk</th>
+        </tr>
+    </thead>
+    
+        <template x-for="x in valueList" :key="x.smaakId">
+          <tr>
+            <td x-text="x.smaakId"></td>
+            <td x-text="x.smaakNaam"></td>
+          </tr>
+        </template>
+      </table>
+    </div>
+
+
+    <h3 class="text-center mt-5">Verschillende verpakkingen:</h3>
+    <div x-data="{valueList: [], 'isLoading': true}" x-init="fetch('http://127.0.0.1:8000/get/verpakkingen/')
+    .then(response => response.json())
+    .then(response => { valueList = response; isLoading = false;})">
+      <table x-show="!isLoading" class="table w-50 text-center align-content-center mx-auto">
+        <thead class="thead-dark">
+        <tr>
+          <th class="h4 mb-2" scope="col">Id</th>
+          <th class="h4 mb-2" scope="col">Merk</th>
+        </tr>
+    </thead>
+    
+        <template x-for="x in valueList" :key="x.verpakkingId">
+          <tr>
+            <td x-text="x.verpakkingId"></td>
+            <td x-text="x.Type"></td>
+          </tr>
+        </template>
+      </table>
+    </div>
+
+
+        <div class="container">
+          <div class="row">
+
+              <div class="col-md-2 mx-auto">
+                <h3 class="text-center mt-5">Smaak toevoegen:</h2>
+
+                  <div x-data="{
+                    responsedata: null,
+                    postsmaak: null,
+                    async xtoevoegen() {
+                        this.responsedata = await (await fetch('http://127.0.0.1:8000/post/smaak/', 
+                        {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                smaakNaam: this.postsmaak,
+                            }),
+                            headers: {
+                                'Content-type': 'application/json; charset=UTF-8',
+                            },
+                        })).json();
+                        console.log(this.responsedata);
+                    },
+                }">
+        
+                <form class="">
+                    <div class="form-group">
+                    <div class="form-group">
+                      <label for="Smaak">Smaak</label>
+                      <input x-model="postsmaak" type="text" class="form-control" id="xSmaak" placeholder="...">
+                    </div>
+                    <p class="text-center">
+                    <button x-on:click="xtoevoegen" type="submit" class="btn btn-primary mt-2">Toevoegen</button>
+                  </form>
+                  <strong x-text="xtoevoegen.Id">Placeholder</strong>
+                  </div>
+                </div>
+
+                  </div>
+
+
+              <div class="col-md-2 mx-auto">
+                <h3 class="text-center mt-5">Merk toevoegen:</h2>
+
+                  <div x-data="{
+                    responsedata: null,
+                    postmerk: null,
+                    postsmaakid: null,
+                    postverpakkingid: null,
+                    async xtoevoegen() {
+                        this.responsedata = await (await fetch('http://127.0.0.1:8000/post/merk/', 
+                        {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                merkNaam: this.postmerk,
+                                smaakId: this.postsmaakid,
+                                verpakkingId: this.postverpakkingid,
+      
+                            }),
+                            headers: {
+                                'Content-type': 'application/json; charset=UTF-8',
+                            },
+                        })).json();
+                        console.log(this.responsedata);
+                    },
+                }">
+        
+                <form class="">
+                    <div class="form-group">
+                    <div class="form-group">
+                      <label for="MerkNaam">MerkNaam</label>
+                      <input x-model="postmerk" type="text" class="form-control" id="xMerk" placeholder="...">
+                    </div>
+                    <div class="form-group">
+                      <label for="SmaakID">SmaakID</label>
+                      <input x-model="postsmaakid" type="text" class="form-control" id="xSmaakID" placeholder="...">
+                    </div>
+                    <div class="form-group">
+                      <label for="VerpakkingID">VerpakkingID</label>
+                      <input x-model="postverpakkingid" type="text" class="form-control" id="xVerpakkingID" placeholder="...">
+                    </div>
+                    <p class="text-center">
+                    <button x-on:click="xtoevoegen" type="submit" class="btn btn-primary mt-2">Toevoegen</button>
+                  </form>
+                  <strong x-text="xtoevoegen.Id">Placeholder</strong>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div class="col-md-2 mx-auto">
+                <h3 class="text-center mt-5">Verpakking toevoegen:</h2>
+
+                  <div x-data="{
+                    responsedata: null,
+                    postverpakking: null,
+                    async xtoevoegen() {
+                        this.responsedata = await (await fetch('http://127.0.0.1:8000/post/verpakking/', 
+                        {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                Type: this.postverpakking,
+                            }),
+                            headers: {
+                                'Content-type': 'application/json; charset=UTF-8',
+                            },
+                        })).json();
+                        console.log(this.responsedata);
+                    },
+                }">
+        
+                <form class="">
+                    <div class="form-group">
+                    <div class="form-group">
+                      <label for="verpakking">Verpakking</label>
+                      <input x-model="postverpakking" type="text" class="form-control" id="xVerpakking" placeholder="...">
+                    </div>
+                    <p class="text-center">
+                    <button x-on:click="xtoevoegen" type="submit" class="btn btn-primary mt-2">Toevoegen</button>
+                  </form>
+                  <strong x-text="xtoevoegen.Id">Placeholder</strong>
+                  </div>
+                </div>
+
+              </div>
+
+          </div>
+      </div>
+
+
+
+        <footer class="text-center text-lg-start">
+            <div class="text-center p-5">
+              © 2022 Copyright:
+              <a class="text-dark" href="">Jonas Willems</a>
+            </div>
+          </footer>
+
+
+
+    <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
+  </body>
+</html>

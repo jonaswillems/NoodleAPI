@@ -1,0 +1,6 @@
+venv
+__pycache__
+test_main.http
+sqlitedb
+*.db
+.pytestcashe_
