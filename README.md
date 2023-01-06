@@ -4,7 +4,13 @@ Zijn Noodles ook jouw lievelings snack? Dan is deze API echt is voor jou.
 Met deze api kun je een lijst opvragen van alle noodles in de lijst.
 Je kan zelf een smaak en verpakking + merk toevoegen.
 
-Er zijn een paar uitbreidingen zoals testing en een front-end!
+Er zijn een paar uitbreidingen zoals testing in het test script + een front-end!
+
+Hosted API:
+https://useritem-api-service2-jonaswillems.cloud.okteto.net/
+Hosted Front-End:
+https://63b8296bc91aa600a466cf56--silver-cheesecake-37fba2.netlify.app/noodleapi-front-end/
+
 
 Werking met Postman:
 
