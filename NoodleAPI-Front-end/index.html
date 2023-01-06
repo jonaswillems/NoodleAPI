@@ -14,7 +14,7 @@
     <div style="border: 5px solid black; width: 1100px;" class="text-center mx-auto">
 
 
-    <div x-data="{valueList: [], 'isLoading': true}" x-init="fetch('http://127.0.0.1:8000/get/merken/')
+    <div x-data="{valueList: [], 'isLoading': true}" x-init="fetch('https://useritem-api-service2-jonaswillems.cloud.okteto.net/get/merken/')
     .then(response => response.json())
     .then(response => { valueList = response; isLoading = false;})">
       <table x-show="!isLoading" class="table w-50 text-center align-content-center mx-auto">
@@ -40,7 +40,7 @@
 
 
     <h3 class="text-center mt-5">Verschillende smaken:</h3>
-    <div x-data="{valueList: [], 'isLoading': true}" x-init="fetch('http://127.0.0.1:8000/get/smaken/')
+    <div x-data="{valueList: [], 'isLoading': true}" x-init="fetch('https://useritem-api-service2-jonaswillems.cloud.okteto.net/get/smaken/')
     .then(response => response.json())
     .then(response => { valueList = response; isLoading = false;})">
       <table x-show="!isLoading" class="table w-50 text-center align-content-center mx-auto">
@@ -62,7 +62,7 @@
 
 
     <h3 class="text-center mt-5">Verschillende verpakkingen:</h3>
-    <div x-data="{valueList: [], 'isLoading': true}" x-init="fetch('http://127.0.0.1:8000/get/verpakkingen/')
+    <div x-data="{valueList: [], 'isLoading': true}" x-init="fetch('https://useritem-api-service2-jonaswillems.cloud.okteto.net/get/verpakkingen/')
     .then(response => response.json())
     .then(response => { valueList = response; isLoading = false;})">
       <table x-show="!isLoading" class="table w-50 text-center align-content-center mx-auto">
@@ -93,7 +93,7 @@
                     responsedata: null,
                     postsmaak: null,
                     async xtoevoegen() {
-                        this.responsedata = await (await fetch('http://127.0.0.1:8000/post/smaak/', 
+                        this.responsedata = await (await fetch('https://useritem-api-service2-jonaswillems.cloud.okteto.net/post/smaak/', 
                         {
                             method: 'POST',
                             body: JSON.stringify({
@@ -132,7 +132,7 @@
                     postsmaakid: null,
                     postverpakkingid: null,
                     async xtoevoegen() {
-                        this.responsedata = await (await fetch('http://127.0.0.1:8000/post/merk/', 
+                        this.responsedata = await (await fetch('https://useritem-api-service2-jonaswillems.cloud.okteto.net/post/merk/', 
                         {
                             method: 'POST',
                             body: JSON.stringify({
@@ -180,7 +180,7 @@
                     responsedata: null,
                     postverpakking: null,
                     async xtoevoegen() {
-                        this.responsedata = await (await fetch('http://127.0.0.1:8000/post/verpakking/', 
+                        this.responsedata = await (await fetch('https://useritem-api-service2-jonaswillems.cloud.okteto.net/post/verpakking/', 
                         {
                             method: 'POST',
                             body: JSON.stringify({
