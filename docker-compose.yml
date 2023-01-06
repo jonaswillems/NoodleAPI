@@ -1,7 +1,7 @@
 version: "3.9"
 services:
  useritem-api-service2:
-  image: jonaswillems/main
+  image: jonassmelliw/main
   ports:
     - "8000:8000"
   volumes:
